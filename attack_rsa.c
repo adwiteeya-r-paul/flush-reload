@@ -49,7 +49,7 @@ int main (int argc, char *argv[]){
         _mm_clflush(square);
         _mm_clflush(multiply);
    
-        for (volatile int i = 0; i < 100000; i++);
+        for (volatile int i = 0; i < 5000; i++);
 =
             uint64_t t0 = rdtsc_begin();
             volatile char v = *square;
@@ -64,7 +64,7 @@ int main (int argc, char *argv[]){
         
         printf("time_square: %lu, time_multiply: %lu\n", time_square, time_multiply);
 
-        if (time_multiply > time_square || time_multiply < time_square - 100 ){ {
+        if (time_multiply - time_square > 30) {
             printf("bit %d is: %d\n", i, 0);
         }
         else {
