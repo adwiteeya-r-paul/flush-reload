@@ -46,7 +46,6 @@ int main (int argc, char *argv[]){
     uint64_t sum;
 
     while(i<8) {
-        _mm_clflush(square);
         _mm_clflush(multiply);
    
             uint64_t t0 = rdtsc_begin();
@@ -62,7 +61,7 @@ int main (int argc, char *argv[]){
         
         printf("time_square: %lu, time_multiply: %lu\n", time_square, time_multiply);
 
-        if (time_multiply - time_square > 30) {
+        if (time_multiply - time_square > 200) {
             printf("bit %d is: %d\n", i, 0);
         }
         else {
