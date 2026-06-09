@@ -52,7 +52,6 @@ int horner_loop(int message, int d){
     int horner = 1;
 
     for (int i = num_of_bits; i >= 0; i--){
-        for (volatile int i = 0; i < 100000; i++);
         horner = square(horner);
         if ((d >> i) & 1){
             horner = multiply(horner, message);
@@ -78,11 +77,13 @@ int main(int argc, char *argv[]){
 
     
     int encrypted_message = horner_loop(message, E);
-    printf("Encrypted message: %d\n", encrypted_message);
 
 
+    while(1) {
+ 
     int decrypted_message = horner_loop(encrypted_message, d);
-    printf("Decrypted message: %d\n", decrypted_message);
+
+    }
     
 }
 

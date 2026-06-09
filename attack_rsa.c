@@ -12,8 +12,8 @@
 #include <string.h>
 #include <x86intrin.h>
 
-const int T_multiply = 0x1210;
-const int T_square = 0x11e7;
+const int T_multiply = 0x1280;
+const int T_square = 0x1200;
 int i = 0;
 int j = 0;
 
@@ -50,9 +50,7 @@ int main (int argc, char *argv[]){
         _mm_clflush(multiply);
    
         for (volatile int i = 0; i < 100000; i++);
-        sum = 0;
-        j = 0;
-  
+=
             uint64_t t0 = rdtsc_begin();
             volatile char v = *square;
             uint64_t t1 = rdtsc_end();        
