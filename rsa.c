@@ -56,7 +56,7 @@ int horner_loop(int message, int d){
         if ((d >> i) & 1){
             horner = multiply(horner, message);
         }
-        for (volatile int i = 0; i < 5000000; i++);
+        for (volatile int i = 0; i < 500000; i++);
 
     }
     return horner;
