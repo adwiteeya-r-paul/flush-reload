@@ -61,11 +61,11 @@ int main (int argc, char *argv[]){
         
         printf("time_square: %lu, time_multiply: %lu\n", time_square, time_multiply);
 
-        if (time_multiply - time_square > 200) {
-            printf("bit %d is: %d\n", i, 0);
+        if (time_multiply < 800) {
+            printf("bit %d is: %d\n", i, 1);
         }
         else {
-            printf("bit %d is: %d\n", i, 1);
+            printf("bit %d is: %d\n", i, 0);
         } 
     i ++;
     }
