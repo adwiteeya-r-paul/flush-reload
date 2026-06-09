@@ -1,0 +1,4 @@
+// command for statistical analysis 
+
+for i in {1..1000}; do t
+askset -c 0 ./rsa & sleep 0.15 && taskset -c 0 ./attack_rsa; pkill rsa; done | grep "bit" | sort | uniq -c | sort -rn
