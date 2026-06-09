@@ -14,6 +14,7 @@
 
 const int T_multiply = 0x1280;
 const int T_square = 0x1200;
+char evict[1024*1024];
 int i = 0;
 int j = 0;
 
@@ -46,8 +47,10 @@ int main (int argc, char *argv[]){
     uint64_t sum;
 
     while(i<8) {
-        _mm_clflush(multiply);
-        for (volatile int k = 0; k < 600000; k++);
+        // evict multiply from cache by accessing lots of memory
+        char evict[1024*1024];
+        for (int k = 0; k < 1024*1024; k+=64) evict[k] = 1;
+       
 
    
             uint64_t t0 = rdtsc_begin();
