@@ -64,7 +64,7 @@ int main (int argc, char *argv[]){
         
         printf("time_square: %lu, time_multiply: %lu\n", time_square, time_multiply);
 
-        if (time_multiply > 280) {
+        if (time_multiply > time_square || time_multiply < time_square - 100 ){ {
             printf("bit %d is: %d\n", i, 0);
         }
         else {
