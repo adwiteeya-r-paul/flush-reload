@@ -47,7 +47,7 @@ int main (int argc, char *argv[]){
 
     while(i<8) {
         _mm_clflush(multiply);
-        for (volatile int k = 0; k < 1000; k++);
+        for (volatile int k = 0; k < 100000; k++);
    
             uint64_t t0 = rdtsc_begin();
             volatile char v = *square;
